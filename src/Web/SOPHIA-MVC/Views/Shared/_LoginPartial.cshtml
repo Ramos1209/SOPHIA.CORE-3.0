@@ -1,0 +1,23 @@
+﻿@using SOPHIA_MVC.Extensions
+@inject IUser AppUser
+
+<ul class="navbar-nav">
+
+@if (AppUser.EstaAutenticado())
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" title="Manage">Olá AppUser.ObterUserEmail()</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Autenticacao" asp-action="Logout">Sair</a> <span> | </span>
+    </li>
+}else{
+    <li class="nav-item">
+        <a a class="btn btn-success" asp-controller="Autenticacao" asp-action="Registro">Crie sua conta</a> <span> | </span>
+    </li>
+    <li class="nav-item">
+        <a class="btn btn-primary" asp-controller="Autenticacao" asp-action="Login"> Login</a>
+    </li>
+
+}
+</ul>
