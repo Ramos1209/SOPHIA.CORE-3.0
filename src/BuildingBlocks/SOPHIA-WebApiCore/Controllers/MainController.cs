@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Results;
 
 namespace SOPHIA_WebApiCore.Controllers
 {
@@ -29,6 +30,16 @@ namespace SOPHIA_WebApiCore.Controllers
             foreach (var item in errors)
             {
                 ProcessamentoErros(item.ErrorMessage);
+            }
+
+            return CustomResponse();
+        }
+
+        protected ActionResult CustomResponse(ValidationResult validationResult)
+        {
+            foreach (var erro in validationResult.Errors)
+            {
+                ProcessamentoErros(erro.ErrorMessage);
             }
 
             return CustomResponse();

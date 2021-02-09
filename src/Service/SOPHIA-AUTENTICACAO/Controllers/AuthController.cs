@@ -10,24 +10,28 @@ using SOPHIA_AUTENTICACAO.Models;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SOPHIA_Core.Integration;
+using SOPHIA_MessageBus;
 using SOPHIA_WebApiCore.Controllers;
 using SOPHIA_WebApiCore.Identidade;
 
 namespace SOPHIA_AUTENTICACAO.Controllers
 {
-   
+
     [Route("api/autenticacao")]
     public class AuthController : MainController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSetting _appSettings;
+        private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager,IOptions<AppSetting> appSettings)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSetting> appSettings, IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -45,6 +49,12 @@ namespace SOPHIA_AUTENTICACAO.Controllers
 
             if (result.Succeeded)
             {
+                var clienteResult = await RegistrarCliente(usuarioRegistro);
+                if (!clienteResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(clienteResult.ValidationResult);
+                }
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
             }
 
@@ -52,8 +62,10 @@ namespace SOPHIA_AUTENTICACAO.Controllers
             {
                 ProcessamentoErros(erro.Description);
             }
-             return CustomResponse();
+            return CustomResponse();
         }
+
+
 
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
@@ -141,6 +153,24 @@ namespace SOPHIA_AUTENTICACAO.Controllers
         private static long ToUnixEpochDate(DateTime dateTime)
             => (long)Math.Round((dateTime.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
 
+        
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
+
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+
+        }
+        
     }
 
 }

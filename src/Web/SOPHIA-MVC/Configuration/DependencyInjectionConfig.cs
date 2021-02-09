@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 using SOPHIA_MVC.Extensions;
 using SOPHIA_MVC.IServices;
@@ -11,7 +12,7 @@ namespace SOPHIA_MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-
+            services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
 
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();

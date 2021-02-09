@@ -8,10 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-   
 
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
@@ -22,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-Core\SOPHIA-Core.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-MessageBus\SOPHIA-MessageBus.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-WebApiCore\SOPHIA-WebApiCore.csproj" />
   </ItemGroup>
 

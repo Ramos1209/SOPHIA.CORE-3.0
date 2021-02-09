@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using SOPHIA_MVC.Extensions;
 
 
 namespace SOPHIA_MVC.Models
@@ -13,7 +14,7 @@ namespace SOPHIA_MVC.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("CPF")]
-       
+        [Cpf]
         public string Cpf { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

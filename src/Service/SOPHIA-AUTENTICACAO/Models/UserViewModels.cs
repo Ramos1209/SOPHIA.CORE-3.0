@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SOPHIA_AUTENTICACAO.Models
 {
     public class UsuarioRegistro
     {
-        //[Required(ErrorMessage = "O Campo é {0} obrigatório")]
-        //public string Nome { get; set; }
-        //[Required(ErrorMessage = "O Campo é {0} obrigatório")]
-        //public string Cpf { get; set; }
+        [Required(ErrorMessage = "O Campo é {0} obrigatório")]
+        public string Nome { get; set; }
+        [Required(ErrorMessage = "O Campo é {0} obrigatório")]
+        public string Cpf { get; set; }
 
         [Required(ErrorMessage = "O Campo é {0} obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} esta no formato errado! ")]

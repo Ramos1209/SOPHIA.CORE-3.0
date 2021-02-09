@@ -19,10 +19,7 @@ namespace SOPHIA_AUTENTICACAO
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            //if (hostEnvironment.IsDevelopment())
-            //{
-            //    builder.AddUserSecrets<Startup>();
-            //}
+           
 
             Configuration = builder.Build();
         }
@@ -30,8 +27,12 @@ namespace SOPHIA_AUTENTICACAO
         {
 
             services.AddIdentiyConfig(Configuration);
+
             services.AddApiConfiguration();
+
             services.AddSwaggerConfiguration();
+
+            services.AddMessageBusConfiguration(Configuration);
         }
 
        
@@ -39,6 +40,7 @@ namespace SOPHIA_AUTENTICACAO
         {
 
             app.USeSwaggerConfiguration();
+
             app.UseApplicationBuilder(env);
 
         }

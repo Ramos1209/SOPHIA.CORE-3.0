@@ -14,9 +14,9 @@ namespace SOPHIA_CLIENTE.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ClientesContext>(options =>
-                options.UseSqlServer(@"Server=DESKTOP-OF7OPC1\\SQLEXPRESS; Database=SOPHIA; Integrated Security=True"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-          //  services.AddControllers();
+            services.AddControllers();
             services.AddCors(options =>
             {
                 options.AddPolicy("Total",
