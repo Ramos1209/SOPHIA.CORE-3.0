@@ -165,6 +165,7 @@ namespace SOPHIA_AUTENTICACAO.Controllers
             }
             catch
             {
+                // throw new Exception(ex.Message);
                 await _userManager.DeleteAsync(usuario);
                 throw;
             }

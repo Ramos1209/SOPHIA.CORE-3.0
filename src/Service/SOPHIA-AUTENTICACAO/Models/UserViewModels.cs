@@ -18,7 +18,7 @@ namespace SOPHIA_AUTENTICACAO.Models
         [StringLength(50, ErrorMessage = "O campo {0} precisa ter 2 e 1 caracteres", MinimumLength = 6)]
         public string Senha { get; set; }
         [Compare("Senha", ErrorMessage = "As senhas nao conferem")]
-        public string ConfirmaSenha { get; set; }
+        public string SenhaConfirmacao { get; set; }
     }
 
     public class UsuarioLogin

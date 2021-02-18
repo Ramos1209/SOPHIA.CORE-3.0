@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation;
-using FluentValidation.Results;
 using SOPHIA_Core.Messeges;
 
 namespace SOPHIA_CLIENTE.Application.Commands

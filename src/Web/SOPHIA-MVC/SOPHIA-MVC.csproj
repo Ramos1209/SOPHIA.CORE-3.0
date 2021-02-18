@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-Core\SOPHIA-Core.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-WebApiCore\SOPHIA-WebApiCore.csproj" />
   </ItemGroup>
 
 </Project>
