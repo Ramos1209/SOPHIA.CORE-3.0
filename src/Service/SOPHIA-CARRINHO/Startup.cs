@@ -20,8 +20,6 @@ namespace SOPHIA_CARRINHO
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-          
-
             Configuration = builder.Build();
         }
 
@@ -29,7 +27,7 @@ namespace SOPHIA_CARRINHO
         {
             services.AddApiConfiguration(Configuration);
 
-           // services.AddJwtConfiguration(Configuration);
+            services.AddJwtConfiguration(Configuration);
 
             services.AddSwaggerConfiguration();
 

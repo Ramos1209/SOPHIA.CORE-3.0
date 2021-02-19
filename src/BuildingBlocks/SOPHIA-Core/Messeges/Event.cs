@@ -1,8 +1,7 @@
 ﻿using System;
 using MediatR;
-using SOPHIA_Core.Messeges;
 
-namespace SOPHIA_Core.Mediator
+namespace SOPHIA_Core.Messeges
 {
     public class Event : Messege, INotification
     {

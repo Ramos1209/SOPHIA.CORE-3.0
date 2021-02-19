@@ -1,62 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SOPHIA_WebApiCore.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller
     {
-        public ICollection<string> Errors = new List<string>();
-
+        protected ICollection<string> Erros = new List<string>();
         protected ActionResult CustomResponse(object result = null)
         {
-            if (EhValida())
+            if (OperacaoValida())
             {
                 return Ok(result);
             }
-
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                {"Mensagens", Errors.ToArray()}
+                { "Mensagens", Erros.ToArray() }
             }));
         }
-
         protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
-            var errors = modelState.Values.SelectMany(x => x.Errors);
-            foreach (var item in errors)
+            var erros = modelState.Values.SelectMany(e => e.Errors);
+            foreach (var erro in erros)
             {
-                ProcessamentoErros(item.ErrorMessage);
+                AdicionarErroProcessamento(erro.ErrorMessage);
             }
 
             return CustomResponse();
         }
-
         protected ActionResult CustomResponse(ValidationResult validationResult)
         {
             foreach (var erro in validationResult.Errors)
             {
-                ProcessamentoErros(erro.ErrorMessage);
+                AdicionarErroProcessamento(erro.ErrorMessage);
             }
 
             return CustomResponse();
         }
-        protected bool EhValida()
+        protected bool OperacaoValida()
         {
-            return !Errors.Any();
+            return !Erros.Any();
         }
 
-        protected void ProcessamentoErros(string erro)
+        protected void AdicionarErroProcessamento(string erro)
         {
-            Errors.Add(erro);
+            Erros.Add(erro);
         }
-
-        protected void LimparProcessamento()
+        protected void LimparErrosProcessamento()
         {
-            Errors.Clear();
+            Erros.Clear();
         }
     }
 }

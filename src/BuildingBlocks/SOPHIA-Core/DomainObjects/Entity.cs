@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SOPHIA_Core.Mediator;
+using SOPHIA_Core.Messeges;
 
 
 namespace SOPHIA_Core.DomainObjects
@@ -8,8 +8,6 @@ namespace SOPHIA_Core.DomainObjects
    public abstract class Entity
     {
         public Guid Id { get; set; }
-
-
 
         private List<Event> _notificacoes;
         public IReadOnlyCollection<Event> Notificacoes => _notificacoes?.AsReadOnly();

@@ -22,7 +22,6 @@ namespace SOPHIA_CLIENTE.Application.Commands
             if (!message.EstaValido()) return message.ValidationResult;
 
             var cliente = new Cliente(message.Id, message.Nome, message.Email, message.Cpf);
-
             var clienteExistente = await _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
 
             if (clienteExistente != null)
@@ -32,12 +31,9 @@ namespace SOPHIA_CLIENTE.Application.Commands
             }
 
             _clienteRepository.Adicionar(cliente);
-
-           cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
-
+            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
             return await PersistirDados(_clienteRepository.UnitOfWork);
 
-           
         }
     }
 }

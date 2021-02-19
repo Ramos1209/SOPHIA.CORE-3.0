@@ -9,7 +9,7 @@ namespace SOPHIA_WebApiCore.Identidade
 {
     public static class JwTokemConfig
     {
-        public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void  AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
 
             //JWT
@@ -38,7 +38,6 @@ namespace SOPHIA_WebApiCore.Identidade
                 };
             });
 
-            return services;
         }
         public static void UseAuthConfiguration(this IApplicationBuilder app)
         {

@@ -60,7 +60,7 @@ namespace SOPHIA_AUTENTICACAO.Controllers
 
             foreach (var erro in result.Errors)
             {
-                ProcessamentoErros(erro.Description);
+                AdicionarErroProcessamento(erro.Description);
             }
             return CustomResponse();
         }
@@ -81,11 +81,11 @@ namespace SOPHIA_AUTENTICACAO.Controllers
 
             if (result.IsLockedOut)
             {
-                ProcessamentoErros("Usuario excedeu as tentativas de login");
+                AdicionarErroProcessamento("Usuario excedeu as tentativas de login");
                 return CustomResponse();
             }
 
-            ProcessamentoErros("Usuario ou senhas incorretos");
+            AdicionarErroProcessamento("Usuario ou senhas incorretos");
             return CustomResponse();
         }
         private async Task<UsuarioRespostaLogin> GerarJwt(string email)

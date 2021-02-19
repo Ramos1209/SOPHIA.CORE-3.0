@@ -8,41 +8,45 @@ namespace SOPHIA_WebApiCore.Identidade
 {
     public class CustomAuthorization
     {
+
         public static bool ValidarClaimsUsuario(HttpContext context, string claimName, string claimValue)
         {
             return context.User.Identity.IsAuthenticated &&
                    context.User.Claims.Any(c => c.Type == claimName && c.Value.Contains(claimValue));
         }
 
-        public class ClaimsAuthorizeAttribute : TypeFilterAttribute
+    }
+
+    public class ClaimsAuthorizeAttribute : TypeFilterAttribute
+    {
+        public ClaimsAuthorizeAttribute(string claimName, string claimValue) : base(typeof(RequisitoClaimFilter))
         {
-            public ClaimsAuthorizeAttribute(string claimName, string claimValue) : base(typeof(RequisitoClaimFilter))
-            {
-                Arguments = new object[] { new Claim(claimName, claimValue) };
-            }
+            Arguments = new object[] { new Claim(claimName, claimValue) };
         }
-        public class RequisitoClaimFilter : IAuthorizationFilter
-        {
-            private readonly Claim _claim;
+    }
 
-            public RequisitoClaimFilter(Claim claim)
+    public class RequisitoClaimFilter : IAuthorizationFilter
+    {
+        private readonly Claim _claim;
+
+        public RequisitoClaimFilter(Claim claim)
+        {
+            _claim = claim;
+        }
+
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            if (!context.HttpContext.User.Identity.IsAuthenticated)
             {
-                _claim = claim;
+                context.Result = new StatusCodeResult(401);
+                return;
             }
 
-            public void OnAuthorization(AuthorizationFilterContext context)
+            if (!CustomAuthorization.ValidarClaimsUsuario(context.HttpContext, _claim.Type, _claim.Value))
             {
-                if (!context.HttpContext.User.Identity.IsAuthenticated)
-                {
-                    context.Result = new StatusCodeResult(401);
-                    return;
-                }
-
-                if (!CustomAuthorization.ValidarClaimsUsuario(context.HttpContext, _claim.Type, _claim.Value))
-                {
-                    context.Result = new StatusCodeResult(403);
-                }
+                context.Result = new StatusCodeResult(403);
             }
         }
     }
 }
+

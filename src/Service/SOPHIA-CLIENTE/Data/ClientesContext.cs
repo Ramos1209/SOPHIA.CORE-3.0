@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using FluentValidation.Results;
 using SOPHIA_Core.DomainObjects;
 using SOPHIA_Core.Mediator;
+using SOPHIA_Core.Messeges;
 
 namespace SOPHIA_CLIENTE.Data
 {
-    public  class ClientesContext :DbContext, IUnitOfWork
+    public sealed class ClientesContext :DbContext, IUnitOfWork
     {
 
         private readonly IMediatorHandler _mediatorHandler;

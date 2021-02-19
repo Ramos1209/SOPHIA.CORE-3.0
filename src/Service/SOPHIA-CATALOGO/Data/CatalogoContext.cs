@@ -4,7 +4,7 @@ using SOPHIA_Core.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
-using SOPHIA_Core.Mediator;
+using SOPHIA_Core.Messeges;
 
 namespace SOPHIA_CATALOGO.Data
 {

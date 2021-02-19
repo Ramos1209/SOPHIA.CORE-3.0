@@ -12,7 +12,7 @@ namespace SOPHIA_WebApiCore.Usuario
                 throw new ArgumentException(nameof(principal));
             }
 
-            var claim = principal.FindFirst("sub");
+            var claim = principal.FindFirst(ClaimTypes.NameIdentifier);
             return claim?.Value;
         }
 
@@ -27,7 +27,7 @@ namespace SOPHIA_WebApiCore.Usuario
             return claim?.Value;
         }
 
-        public static string GetUSerToken(this ClaimsPrincipal principal)
+        public static string GetUserToken(this ClaimsPrincipal principal)
         {
             if (principal == null)
             {

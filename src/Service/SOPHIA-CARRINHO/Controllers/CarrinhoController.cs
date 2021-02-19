@@ -11,6 +11,7 @@ using SOPHIA_WebApiCore.Controllers;
 
 namespace SOPHIA_CARRINHO.Controllers
 {
+    [Authorize]
     public class CarrinhoController : MainController
     {
 
@@ -18,7 +19,8 @@ namespace SOPHIA_CARRINHO.Controllers
         private readonly CarrinhoContext _context;
 
         public CarrinhoController(IAspNetUser user, CarrinhoContext context)
-        {   _user = user;
+        {
+            _user = user;
             _context = context;
         }
         [HttpGet("carrinho")]
@@ -37,7 +39,7 @@ namespace SOPHIA_CARRINHO.Controllers
             else
                 ManipularCarrinhoExistente(carrinho, item);
 
-            if (!EhValida()) return CustomResponse();
+            if (!OperacaoValida()) return CustomResponse();
 
             await PersistirDados();
             return CustomResponse();
@@ -53,7 +55,7 @@ namespace SOPHIA_CARRINHO.Controllers
             carrinho.AtualizarUnidades(itemCarrinho, item.Quantidade);
 
             ValidarCarrinho(carrinho);
-            if (!EhValida()) return CustomResponse();
+            if (!OperacaoValida()) return CustomResponse();
 
             _context.CarrinhoItens.Update(itemCarrinho);
             _context.CarrinhoCliente.Update(carrinho);
@@ -71,7 +73,7 @@ namespace SOPHIA_CARRINHO.Controllers
             if (itemCarrinho == null) return CustomResponse();
 
             ValidarCarrinho(carrinho);
-            if (!EhValida()) return CustomResponse();
+            if (!OperacaoValida()) return CustomResponse();
 
             carrinho.RemoverItem(itemCarrinho);
 
@@ -82,19 +84,17 @@ namespace SOPHIA_CARRINHO.Controllers
             return CustomResponse();
         }
 
-
-
-        
         private async Task<CarrinhoCliente> ObterCarrinhoCliente()
         {
-          var result = await _context.CarrinhoCliente
-                .Include(c => c.Itens)
-                .FirstOrDefaultAsync(c => c.ClienteId == _user.ObterUserId());
-          return result;
+            var usuario = _user.ObterUserId();
+            var result = await _context.CarrinhoCliente
+                  .Include(c => c.Itens)
+                  .FirstOrDefaultAsync(c => c.ClienteId.ToString() == usuario.ToString().ToLower());
+            return result;
         }
         private void ManipularNovoCarrinho(CarrinhoItens item)
         {
-           var carrinho = new CarrinhoCliente(_user.ObterUserId());
+            var carrinho = new CarrinhoCliente(_user.ObterUserId());
             carrinho.AdicionarItem(item);
 
             ValidarCarrinho(carrinho);
@@ -122,13 +122,13 @@ namespace SOPHIA_CARRINHO.Controllers
         {
             if (item != null && produtoId != item.ProdutoId)
             {
-                ProcessamentoErros("O item não corresponde ao informado");
+                AdicionarErroProcessamento("O item não corresponde ao informado");
                 return null;
             }
 
             if (carrinho == null)
             {
-                ProcessamentoErros("Carrinho não encontrado");
+                AdicionarErroProcessamento("Carrinho não encontrado");
                 return null;
             }
 
@@ -137,7 +137,7 @@ namespace SOPHIA_CARRINHO.Controllers
 
             if (itemCarrinho == null || !carrinho.CarrinhoItemExistente(itemCarrinho))
             {
-                ProcessamentoErros("O item não está no carrinho");
+                AdicionarErroProcessamento("O item não está no carrinho");
                 return null;
             }
 
@@ -146,16 +146,16 @@ namespace SOPHIA_CARRINHO.Controllers
         private async Task PersistirDados()
         {
             var result = await _context.SaveChangesAsync();
-           if (result <= 0) ProcessamentoErros("Não foi possível persistir os dados no banco");
+            if (result <= 0) AdicionarErroProcessamento("Não foi possível persistir os dados no banco");
         }
         private bool ValidarCarrinho(CarrinhoCliente carrinho)
         {
             if (carrinho.EhValido()) return true;
 
-            carrinho.ValidationResult.Errors.ToList().ForEach(e => ProcessamentoErros(e.ErrorMessage));
+            carrinho.ValidationResult.Errors.ToList().ForEach(e => AdicionarErroProcessamento(e.ErrorMessage));
             return false;
         }
-        
+
     }
 }
 

@@ -5,7 +5,7 @@ using FluentValidation.Results;
 
 namespace SOPHIA_CARRINHO.Data
 {
-    public class CarrinhoContext: DbContext
+    public sealed class CarrinhoContext: DbContext
     {
         public CarrinhoContext(DbContextOptions<CarrinhoContext> options)
             : base(options)

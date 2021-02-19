@@ -13,27 +13,33 @@ namespace SOPHIA_MVC.Extensions
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext httpContent)
+        public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(httpContent);
+                await _next(httpContext);
             }
             catch (CustomHttpRequestException ex)
             {
-                HandleRequestExceptionAsync(httpContent,ex);
+                HandleRequestExceptionAsync(httpContext, ex.StatusCode);
             }
+        
         }
 
-        private static void HandleRequestExceptionAsync(HttpContext context, CustomHttpRequestException customHttpRequestException)
+        private static void HandleRequestExceptionAsync(HttpContext context, HttpStatusCode statusCode)
         {
-            if (customHttpRequestException.StatusCode == HttpStatusCode.Unauthorized)
+            if (statusCode == HttpStatusCode.Unauthorized)
             {
                 context.Response.Redirect($"/login?ReturnUrl={context.Request.Path}");
                 return;
             }
 
-            context.Response.StatusCode = (int) customHttpRequestException.StatusCode;
+            context.Response.StatusCode = (int)statusCode;
+        }
+
+        private static void HandleCircuitBreakerExceptionAsync(HttpContext context)
+        {
+            context.Response.Redirect("/sistema-indisponivel");
         }
     }
 }

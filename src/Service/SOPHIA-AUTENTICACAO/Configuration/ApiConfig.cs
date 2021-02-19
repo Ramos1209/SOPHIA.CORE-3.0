@@ -15,15 +15,9 @@ namespace SOPHIA_AUTENTICACAO.Configuration
 
         public static IApplicationBuilder UseApplicationBuilder(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
 
             app.UseRouting();
-
             app.UseAuthConfiguration();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

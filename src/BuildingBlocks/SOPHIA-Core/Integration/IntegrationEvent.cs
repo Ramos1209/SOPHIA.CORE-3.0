@@ -1,4 +1,4 @@
-﻿using SOPHIA_Core.Mediator;
+﻿using SOPHIA_Core.Messeges;
 
 namespace SOPHIA_Core.Integration
 {

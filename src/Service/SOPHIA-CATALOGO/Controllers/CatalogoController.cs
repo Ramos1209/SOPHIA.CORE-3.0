@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOPHIA_CATALOGO.Models;
 using SOPHIA_WebApiCore.Controllers;
-using static SOPHIA_WebApiCore.Identidade.CustomAuthorization;
+using SOPHIA_WebApiCore.Identidade;
 
 namespace SOPHIA_CATALOGO.Controllers
 {

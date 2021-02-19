@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SOPHIA_Core.Messeges
 {
-    public class CommandHandler
+    public abstract  class CommandHandler
     {
         protected ValidationResult ValidationResult;
 

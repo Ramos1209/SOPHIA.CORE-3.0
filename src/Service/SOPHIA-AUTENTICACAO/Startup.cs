@@ -25,22 +25,15 @@ namespace SOPHIA_AUTENTICACAO
         }
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddIdentiyConfig(Configuration);
-
             services.AddApiConfiguration();
-
             services.AddSwaggerConfiguration();
-
             services.AddMessageBusConfiguration(Configuration);
         }
-
-       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
             app.USeSwaggerConfiguration();
-
             app.UseApplicationBuilder(env);
 
         }

@@ -19,7 +19,6 @@ namespace SOPHIA_WebApiCore.Usuario
         public bool EstaAutenticado()
         {
             return _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
-
         }
 
         public IEnumerable<Claim> ObterClaims()
@@ -44,7 +43,7 @@ namespace SOPHIA_WebApiCore.Usuario
 
         public string ObterUserToken()
         {
-            return EstaAutenticado() ? _contextAccessor.HttpContext.User.GetUSerToken() : "";
+            return EstaAutenticado() ? _contextAccessor.HttpContext.User.GetUserToken() : "";
         }
 
         public bool PossuiRoles(string role)

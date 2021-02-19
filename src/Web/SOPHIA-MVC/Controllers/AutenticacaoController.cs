@@ -82,7 +82,6 @@ namespace SOPHIA_MVC.Controllers
             claims.AddRange(token.Claims);
 
             var identityClain = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
             var authPropertis = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
