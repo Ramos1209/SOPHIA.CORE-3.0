@@ -20,11 +20,8 @@ namespace SOPHIA_MVC.Services
         public async Task<ProdutoViewModel> ObterPorId(Guid id)
         {
             var response = await _httpClient.GetAsync($"catalogo/produtos/{id}");
-
             TratarErrosResponse(response);
             return await DeserializeObjetoResponse<ProdutoViewModel>(response);
-
-
         }
         public async Task<IEnumerable<ProdutoViewModel>> ObterTodos()
         {

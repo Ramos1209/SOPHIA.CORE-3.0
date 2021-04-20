@@ -59,7 +59,7 @@ namespace SOPHIA_MVC.Controllers
             if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
             await RealizarLogin(resposta);
 
-            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Catalogo");
 
             return LocalRedirect(returnUrl);
           
@@ -88,7 +88,6 @@ namespace SOPHIA_MVC.Controllers
                 IsPersistent = true
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identityClain), authPropertis);
-
 
         }
 

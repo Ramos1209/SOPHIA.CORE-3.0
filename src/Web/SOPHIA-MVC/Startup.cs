@@ -19,16 +19,12 @@ namespace SOPHIA_MVC
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            //if (hostEnvironment.IsDevelopment())
-            //{
-            //    builder.AddUserSecrets<Startup>();
-            //}
-
+          
             Configuration = builder.Build();
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentiyConfig();
+            services.AddIdentityConfig();
             services.AddMvcConfiguration(Configuration);
             services.RegisterServices();
         }
@@ -37,6 +33,7 @@ namespace SOPHIA_MVC
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMvcConfiguration(env);
+          
         }
     }
 }

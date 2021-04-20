@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-MessageBus\SOPHIA-MessageBus.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\SOPHIA-WebApiCore\SOPHIA-WebApiCore.csproj" />
   </ItemGroup>
 

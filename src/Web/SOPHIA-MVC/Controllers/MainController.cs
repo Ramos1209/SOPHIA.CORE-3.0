@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SOPHIA_Core.Comunication;
 using System.Linq;
-using SOPHIA_MVC.Models;
 
 namespace SOPHIA_MVC.Controllers
 {

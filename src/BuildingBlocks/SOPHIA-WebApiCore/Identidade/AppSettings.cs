@@ -1,6 +1,6 @@
 ﻿namespace SOPHIA_WebApiCore.Identidade
 {
-    public class AppSetting
+    public class AppSettings
     {
         public string Secret { get; set; }
         public int ExpiracaoHoras { get; set; }

@@ -6,11 +6,14 @@ namespace SOPHIA_MVC.Models
 
     public class CarrinhoViewModel
     {
+        public VoucherViewModel Voucher { get; set; }
+        public bool VoucherUtilizado { get; set; }
+        public decimal Desconto { get; set; }
         public decimal ValorTotal { get; set; }
-        public List<ItemProdutoViewModel> Itens { get; set; } = new List<ItemProdutoViewModel>();
+        public List<ItemCarrinhoViewModel> Itens { get; set; } = new List<ItemCarrinhoViewModel>();
     }
 
-    public class ItemProdutoViewModel
+    public class ItemCarrinhoViewModel
     {
         public Guid ProdutoId { get; set; }
         public string Nome { get; set; }

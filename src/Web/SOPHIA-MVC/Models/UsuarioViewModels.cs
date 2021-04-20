@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using SOPHIA_Core.Comunication;
 using SOPHIA_MVC.Extensions;
 
 

@@ -14,9 +14,9 @@ namespace SOPHIA_WebApiCore.Identidade
 
             //JWT
             var appsettingsSection = configuration.GetSection("AppSettings");
-            services.Configure<AppSetting>(appsettingsSection);
+            services.Configure<AppSettings>(appsettingsSection);
 
-            var appsettings = appsettingsSection.Get<AppSetting>();
+            var appsettings = appsettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appsettings.Secret);
 
             services.AddAuthentication(opt =>
@@ -25,7 +25,7 @@ namespace SOPHIA_WebApiCore.Identidade
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(barerOpt =>
             {
-                barerOpt.RequireHttpsMetadata = true;
+                barerOpt.RequireHttpsMetadata = false;
                 barerOpt.SaveToken = true;
                 barerOpt.TokenValidationParameters = new TokenValidationParameters
                 {

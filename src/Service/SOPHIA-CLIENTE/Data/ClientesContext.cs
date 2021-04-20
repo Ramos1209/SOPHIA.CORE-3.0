@@ -65,7 +65,7 @@ namespace SOPHIA_CLIENTE.Data
 
             var tasks = domainEvents
                 .Select(async (domainEvent) => {
-                    await mediator.PublicarEvento(domainEvent);
+                    await mediator.PublicarEventos(domainEvent);
                 });
 
             await Task.WhenAll(tasks);

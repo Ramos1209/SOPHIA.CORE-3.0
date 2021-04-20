@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOPHIA_CARRINHO.Data;
 using SOPHIA_CARRINHO.Model;
-using SOPHIA_WebApiCore.Usuario;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using SOPHIA_WebApiCore.Controllers;
+using SOPHIA_WebApiCore.Usuario;
+
 
 namespace SOPHIA_CARRINHO.Controllers
 {
@@ -84,12 +85,24 @@ namespace SOPHIA_CARRINHO.Controllers
             return CustomResponse();
         }
 
+        [HttpPost]
+        [Route("carrinho/aplicar-voucher")]
+        public async Task<IActionResult> AplicarVoucher(Voucher voucher)
+        {
+            var carrinho = await ObterCarrinhoCliente();
+
+            carrinho.AplicarVoucher(voucher);
+            _context.CarrinhoCliente.Update(carrinho);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
         private async Task<CarrinhoCliente> ObterCarrinhoCliente()
         {
-            var usuario = _user.ObterUserId();
+         
             var result = await _context.CarrinhoCliente
                   .Include(c => c.Itens)
-                  .FirstOrDefaultAsync(c => c.ClienteId.ToString() == usuario.ToString().ToLower());
+                  .FirstOrDefaultAsync(c => c.ClienteId == _user.ObterUserId());
             return result;
         }
         private void ManipularNovoCarrinho(CarrinhoItens item)

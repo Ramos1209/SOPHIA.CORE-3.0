@@ -6,7 +6,6 @@ using SOPHIA_CLIENTE.Application.Events;
 using SOPHIA_CLIENTE.Data;
 using SOPHIA_CLIENTE.Data.Repository;
 using SOPHIA_CLIENTE.Models;
-using SOPHIA_CLIENTE.Services;
 using SOPHIA_Core.Mediator;
 
 namespace SOPHIA_CLIENTE.Configuration
@@ -20,10 +19,10 @@ namespace SOPHIA_CLIENTE.Configuration
 
             services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 
-              services.AddScoped<IClienteRepository, ClienteRepository>();
-              services.AddScoped<ClientesContext>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<ClientesContext>();
 
-             
+
         }
     }
 }

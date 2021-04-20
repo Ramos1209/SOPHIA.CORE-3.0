@@ -10,26 +10,26 @@ namespace SOPHIA_CARRINHO.Configuration
         public static void AddSwaggerConfiguration(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo()
             {
-                Title = "SOPHIA  Carrinho API",
-                Description = "Esta API faz parte da ASP.NET Core SOPHIA Applications.",
-                Contact = new OpenApiContact() { Name = "Paulo Cesar Ramos", Email = "contato@desenvolvedor.io" },
-                License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
-            });
+                c.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "SOPHIA -  Carrinho API",
+                    Description = "Esta API faz parte do  ASP.NET Core SOPHIA Applications.",
+                    Contact = new OpenApiContact() { Name = "Ramos", Email = "contato@desenvolvedor.io" },
+                    License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
+                });
 
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = "Insira o token JWT desta maneira: Bearer {seu token}",
-                Name = "Authorization",
-                Scheme = "Bearer",
-                BearerFormat = "JWT",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey
-            });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Insira o token JWT desta maneira: Bearer {seu token}",
+                    Name = "Authorization",
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -40,11 +40,11 @@ namespace SOPHIA_CARRINHO.Configuration
                             Id = "Bearer"
                         }
                     },
-                    new string[] { }
+                    new string[] {}
                 }
             });
 
-        });
+            });
         }
 
         public static void UseSwaggerConfiguration(this IApplicationBuilder app)
@@ -56,4 +56,5 @@ namespace SOPHIA_CARRINHO.Configuration
             });
         }
     }
+
 }

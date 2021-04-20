@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using SOPHIA_Core.Comunication;
 
 namespace SOPHIA_WebApiCore.Controllers
 {
@@ -30,6 +31,23 @@ namespace SOPHIA_WebApiCore.Controllers
             }
 
             return CustomResponse();
+        }
+        protected ActionResult CustomResponse(ResponseResult resposta)
+        {
+            ResponsePossuiErros(resposta);
+
+            return CustomResponse();
+        }
+        protected bool ResponsePossuiErros(ResponseResult resposta)
+        {
+            if (resposta == null || !resposta.Erros.Mensagens.Any()) return false;
+
+            foreach (var mensagem in resposta.Erros.Mensagens)
+            {
+                AdicionarErroProcessamento(mensagem);
+            }
+
+            return true;
         }
         protected ActionResult CustomResponse(ValidationResult validationResult)
         {

@@ -6,7 +6,7 @@ namespace SOPHIA_MVC.Configuration
 {
     public static class IdentityConfig
     {
-        public static void AddIdentiyConfig(this IServiceCollection services)
+        public static void AddIdentityConfig(this IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(opt =>
@@ -16,7 +16,7 @@ namespace SOPHIA_MVC.Configuration
                 });
         }
 
-        public static void UseIdentiyConfig(this IApplicationBuilder app)
+        public static void UseIdentityConfig(this IApplicationBuilder app)
         {
 
             app.UseAuthentication();

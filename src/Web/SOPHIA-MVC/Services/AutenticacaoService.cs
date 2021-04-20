@@ -5,6 +5,7 @@ using SOPHIA_MVC.Models;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SOPHIA_Core.Comunication;
 
 namespace SOPHIA_MVC.Services
 {

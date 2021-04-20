@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SOPHIA_Core.Comunication;
 using SOPHIA_MVC.Models;
 
 namespace SOPHIA_MVC.Services
@@ -13,7 +14,6 @@ namespace SOPHIA_MVC.Services
         {
             return new StringContent(JsonSerializer.Serialize(dado), Encoding.UTF8, "application/json");
         }
-
         protected async Task<T> DeserializeObjetoResponse<T>(HttpResponseMessage httpResponseMessage)
         {
             var options = new JsonSerializerOptions
@@ -39,7 +39,6 @@ namespace SOPHIA_MVC.Services
             response.EnsureSuccessStatusCode();
             return true;
         }
-
         protected ResponseResult RetornoOk()
         {
             return new ResponseResult();

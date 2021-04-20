@@ -35,11 +35,10 @@ namespace SOPHIA_CARRINHO.Configuration
             {
                 app.UseDeveloperExceptionPage();
             }
-
-          //  app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
-
+          
             app.UseCors("Total");
 
             app.UseAuthConfiguration();

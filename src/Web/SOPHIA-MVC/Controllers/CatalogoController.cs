@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SOPHIA_MVC.IServices;
+using System;
+using System.Threading.Tasks;
 
 namespace SOPHIA_MVC.Controllers
 {
-    public class CatalogoController : Controller
+    public class CatalogoController : MainController
     {
 
         private readonly ICatalogoService _catalogoService;

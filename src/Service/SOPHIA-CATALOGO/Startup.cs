@@ -18,10 +18,6 @@ namespace SOPHIA_CATALOGO
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            //if (hostEnvironment.IsDevelopment())
-            //{
-            //    builder.AddUserSecrets<Startup>();
-            //}
 
             Configuration = builder.Build();
         }
@@ -30,18 +26,15 @@ namespace SOPHIA_CATALOGO
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);
-
             services.AddJwtConfiguration(Configuration);
-
             services.AddSwaggerConfiguration();
-
             services.RegisterServices();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwaggerConfiguration();
-
             app.UseApiConfiguration(env);
         }
     }
